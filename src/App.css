@@ -1,0 +1,59 @@
+.App {
+  min-height: 100vh;
+}
+
+.app-header {
+  text-align: center;
+  padding: 40px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin: -20px -20px 40px -20px;
+  border-radius: 0 0 20px 20px;
+}
+
+.app-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
+.app-header p {
+  margin: 0;
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+.step-info {
+  margin-top: 15px;
+  font-size: 1.1em;
+  opacity: 0.8;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  border-top: 1px solid #eee;
+  margin-top: 40px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.form-actions button:only-child {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 2em;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
