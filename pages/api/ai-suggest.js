@@ -26,7 +26,8 @@ export default async function handler(req, res) {
 
     res.status(200).json({ suggestions });
   } catch (err) {
-    console.error('ai-suggest error', err.response?.data || err.message);
-    res.status(500).json({ error: 'Failed to generate suggestions' });
+    const message = err?.response?.statusText || err?.response?.data?.error || err.message || 'Failed to generate suggestions';
+    console.error('ai-suggest error', message);
+    res.status(500).json({ error: message });
   }
 }
