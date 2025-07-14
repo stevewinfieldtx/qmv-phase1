@@ -13,7 +13,9 @@
     "@types/react": "^18.2.24",
     "@types/node": "^20.4.2",
     "node-mocks-http": "^1.11.0",
-    "@types/node-mocks-http": "^1.8.4"
+    "@types/node-mocks-http": "^1.8.4",
+    "@types/react-dom": "^18.2.7",
+    "@types/stripe": "^12.8.4"
   },
   "scripts": {
     "dev": "next dev",
