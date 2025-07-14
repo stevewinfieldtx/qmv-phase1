@@ -18,9 +18,10 @@
       "next",
       "react",
       "jest",
+      "jest-globals",
       "node",
-      "testing-library__jest-dom",
       "testing-library__react",
+      "testing-library__jest-dom",
       "node-mocks-http"
     ]
   },
