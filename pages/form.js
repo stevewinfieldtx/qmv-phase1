@@ -37,6 +37,8 @@ export default function FormPage() {
 
   const [aiLoading, setAiLoading] = useState(false);
   const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [uploading, setUploading] = useState(false);
 
   const nextStep = () => setStep((s) => s + 1);
   const prevStep = () => setStep((s) => s - 1);
@@ -67,6 +69,20 @@ export default function FormPage() {
   const INSTRUMENTS = ['Electric Guitar', 'Acoustic Guitar', 'Bass Guitar', 'Piano', 'Synthesizer', 'Drums', 'Percussion', 'Violin', 'Cello', 'Saxophone', 'Trumpet', 'Trombone'];
   const EFFECTS = ['Reverb', 'Echo', 'Delay', 'Chorus', 'Distortion', 'Overdrive', 'EQ', 'Compression', 'Auto-Tune', 'Tremolo'];
 
+  const validateStep1 = () => {
+    const errs = {};
+    if (!songInfo.overallTone) errs.overallTone = 'Tone is required';
+    if (!songInfo.speed) errs.speed = 'Speed required';
+    if (!songInfo.videoLength || songInfo.videoLength < 10) errs.videoLength = 'Video length must be >=10s';
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const handleNext = () => {
+    if (step === 1 && !validateStep1()) return;
+    nextStep();
+  };
+
   const handleGenerateAI = async () => {
     setAiLoading(true);
     try {
@@ -91,6 +107,7 @@ export default function FormPage() {
   };
 
   const handleUploadFiles = async (files) => {
+    setUploading(true);
     const uploaded = [];
     for (const file of files) {
       try {
@@ -108,9 +125,11 @@ export default function FormPage() {
         uploaded.push(publicUrl);
       } catch (err) {
         console.error('upload error', err);
+        alert(`Failed to upload ${file.name}`);
       }
     }
     setMediaInfo((prev) => ({ ...prev, uploadedUrls: [...prev.uploadedUrls, ...uploaded] }));
+    setUploading(false);
   };
 
   const handleSubmit = async () => {
@@ -172,6 +191,7 @@ export default function FormPage() {
               onChange={handleSongChange}
               className="w-full border px-2 py-1"
             />
+            {errors.videoLength && <span className="text-red-600 text-sm">{errors.videoLength}</span>}
           </label>
           <label className="block">
             <span>Age of audience</span>
@@ -193,8 +213,11 @@ export default function FormPage() {
               rows={3}
             />
           </label>
+          {Object.values(errors).length > 0 && (
+            <p className="text-red-600 text-sm">Please fix the errors above before continuing.</p>
+          )}
           <div className="flex justify-end mt-4">
-            <button className="bg-indigo-600 text-white px-6 py-2 rounded" onClick={nextStep}>
+            <button className="bg-indigo-600 text-white px-6 py-2 rounded" onClick={handleNext}>
               Next
             </button>
           </div>
@@ -366,10 +389,14 @@ export default function FormPage() {
             </label>
           )}
 
+          {mediaInfo.uploadType === 'images' && uploading && (
+            <p className="text-sm text-gray-600">Uploading images…</p>
+          )}
+
           <div className="flex justify-between mt-4">
             <button className="border px-6 py-2 rounded" onClick={prevStep}>Back</button>
-            <button className="bg-indigo-600 text-white px-6 py-2 rounded" onClick={handleSubmit} disabled={loading}>
-              {loading ? 'Submitting…' : 'Submit'}
+            <button className="bg-indigo-600 text-white px-6 py-2 rounded" onClick={handleSubmit} disabled={loading || uploading}>
+              {loading ? 'Submitting…' : uploading ? 'Uploading…' : 'Submit'}
             </button>
           </div>
         </section>

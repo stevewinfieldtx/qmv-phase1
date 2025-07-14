@@ -7,10 +7,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     return res.status(405).end('Method Not Allowed');
   }
 
   try {
+    if (!process.env.STRIPE_SECRET_KEY) throw new Error('Stripe secret key missing');
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -33,6 +36,7 @@ export default async function handler(req, res) {
     res.status(200).json({ id: session.id });
   } catch (err) {
     console.error('Stripe session error:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    const message = err.type === 'StripeInvalidRequestError' ? err.message : 'Internal Server Error';
+    res.status(500).json({ error: message });
   }
 }
