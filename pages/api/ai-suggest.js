@@ -26,8 +26,16 @@ export default async function handler(req, res) {
 
     res.status(200).json({ suggestions });
   } catch (err) {
-    const message = err?.response?.statusText || err?.response?.data?.error || err.message || 'Failed to generate suggestions';
-    console.error('ai-suggest error', message);
+    let message = 'Failed to generate suggestions';
+    if (err instanceof Error) message = err.message;
+    // Gemini error wrapper may have .code and .message
+    if (typeof err === 'object' && err) {
+      // @ts-ignore
+      if (err.code) message = `${err.code}: ${err.message}`;
+      // @ts-ignore
+      if (err.status) message = `${err.status}: ${err.message}`;
+    }
+    console.error('ai-suggest error', err);
     res.status(500).json({ error: message });
   }
 }
