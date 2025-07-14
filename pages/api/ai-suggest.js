@@ -1,7 +1,6 @@
-import { Configuration, OpenAIApi } from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY ?? '' });
-const openai = new OpenAIApi(configuration);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? '');
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -13,23 +12,12 @@ export default async function handler(req, res) {
   if (!promptContext) return res.status(400).json({ error: 'promptContext required' });
 
   try {
-    const completion = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a creative assistant that generates imaginative, vivid yet concise image prompts for AI image generation systems like Midjourney or Stable Diffusion.'
-        },
-        {
-          role: 'user',
-          content: `Based on the following song and media description, propose three distinct high-quality image prompts that would make sense as frames in a music video. Each prompt should be ~25 words.\n\n${JSON.stringify(promptContext, null, 2)}`
-        }
-      ],
-      max_tokens: 300,
-      temperature: 0.9,
-    });
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
-    const text = completion.data.choices?.[0]?.message?.content ?? '';
+    const prompt = `Given the following music video project details, propose three distinct, vivid and imaginative image prompts (each about 25 words) that would work as frames in the video.\nReturn each prompt on its own line.\n\n${JSON.stringify(promptContext, null, 2)}`;
+
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
     const suggestions = text
       .split(/\n|\d+\. /)
       .map((p) => p.trim())

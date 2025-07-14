@@ -25,6 +25,7 @@ Environment variables required:
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` – your Stripe publishable key.
 - `GCS_BUCKET_NAME` – the name of the bucket to store submitted JSON payloads.
 - `GOOGLE_APPLICATION_CREDENTIALS` – path to a Google Service Account credentials JSON with write access to the bucket.
+- `GEMINI_API_KEY` – API key for Gemini 1.5 Pro (Google Generative AI).
 
 ## Deploying to Railway
 
