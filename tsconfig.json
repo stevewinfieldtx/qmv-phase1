@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx", // use new JSX runtime
-    "types": ["next", "react", "jest", "node", "testing-library__jest-dom"]
+    "types": ["next", "react", "jest", "node", "testing-library__jest-dom", "testing-library__react"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

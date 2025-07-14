@@ -1,4 +1,4 @@
-import React from 'react';
+/* @jsxImportSource react */
 import { render, screen } from '@testing-library/react';
 import Landing from '../pages/index';
 import '@testing-library/jest-dom';
