@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import type { SongInfo, AdvancedOptions, MediaInfo, ErrorsMap } from '../types/form';
 import { validateSongInfo } from '../utils/validation';
@@ -13,14 +13,14 @@ export default function FormPage() {
   const router = useRouter();
   const { session_id } = router.query as { session_id?: string };
 
-  const [step, setStep] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [uploading, setUploading] = useState<boolean>(false);
-  const [aiLoading, setAiLoading] = useState<boolean>(false);
-  const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
-  const [errors, setErrors] = useState<ErrorsMap>({});
+  const [step, setStep] = React.useState<number>(1);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [uploading, setUploading] = React.useState<boolean>(false);
+  const [aiLoading, setAiLoading] = React.useState<boolean>(false);
+  const [aiSuggestions, setAiSuggestions] = React.useState<string[]>([]);
+  const [errors, setErrors] = React.useState<ErrorsMap>({});
 
-  const [songInfo, setSongInfo] = useState<SongInfo>({
+  const [songInfo, setSongInfo] = React.useState<SongInfo>({
     artistReference: '',
     overallTone: 'happy',
     speed: 'medium',
@@ -29,7 +29,7 @@ export default function FormPage() {
     additionalNotes: '',
   });
 
-  const [advanced, setAdvanced] = useState<AdvancedOptions>({
+  const [advanced, setAdvanced] = React.useState<AdvancedOptions>({
     genres: [],
     vocalStyles: [],
     moods: [],
@@ -37,7 +37,7 @@ export default function FormPage() {
     effects: [],
   });
 
-  const [mediaInfo, setMediaInfo] = useState<MediaInfo>({
+  const [mediaInfo, setMediaInfo] = React.useState<MediaInfo>({
     uploadType: 'images',
     imageDuration: 4,
     numImages: 8,
