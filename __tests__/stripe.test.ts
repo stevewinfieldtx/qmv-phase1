@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import handler from '../pages/api/create-checkout-session';
-import httpMocks from 'node-mocks-http';
+import * as httpMocks from 'node-mocks-http';
 
 jest.mock('stripe', () => {
   return jest.fn().mockImplementation(() => ({

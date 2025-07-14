@@ -17,7 +17,8 @@
     "@types/node-mocks-http": "^1.8.4",
     "@types/react-dom": "^18.2.7",
     "@types/stripe": "^12.8.4",
-    "@types/testing-library__jest-dom": "^5.14.9"
+    "@types/testing-library__jest-dom": "^5.14.9",
+    "@types/testing-library__react": "^14.0.0"
   },
   "scripts": {
     "dev": "next dev",
