@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { validateSongInfo } from '../utils/validation';
 
 describe('validateSongInfo', () => {
@@ -27,3 +28,5 @@ describe('validateSongInfo', () => {
     expect(Object.keys(errs)).toHaveLength(0);
   });
 });
+
+export {};

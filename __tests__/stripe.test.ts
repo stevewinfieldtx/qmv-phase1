@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import handler from '../pages/api/create-checkout-session';
 import httpMocks from 'node-mocks-http';
 
@@ -21,3 +22,5 @@ describe('create-checkout-session API', () => {
     expect(data.id).toBe('sess_123');
   });
 });
+
+export {};
