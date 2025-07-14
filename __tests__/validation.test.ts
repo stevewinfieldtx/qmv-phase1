@@ -28,5 +28,3 @@ describe('validateSongInfo', () => {
     expect(Object.keys(errs)).toHaveLength(0);
   });
 });
-
-export {};

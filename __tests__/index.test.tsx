@@ -1,7 +1,6 @@
-/* @jsxImportSource react */
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Landing from '../pages/index';
-import '@testing-library/jest-dom';
 
 jest.mock('next/head', () => ({ __esModule: true, default: ({ children }: any) => <>{children}</> }));
 

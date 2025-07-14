@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx", // use new JSX runtime
+    "jsx": "react-jsx", // React 17+ runtime
     "types": ["next", "react", "jest", "node", "testing-library__jest-dom", "testing-library__react"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
